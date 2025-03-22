@@ -1,14 +1,17 @@
-const { StatusCode } = require('../../config/http-status-codes');
+const { StatusCodes } = require('http-status-codes');
+
 class ValidationError extends Error {
-    constructor(error){
+    constructor(error) {
         super();
         let explanation = [];
-        error.errors.forEach((err)=>{explanation.push(err.message)});
+        error.errors.forEach((err) => {
+            explanation.push(err.message);
+        });
         this.name = "ValidationError";
         this.message = "Not able to validate the data sent in the request";
         this.explanation = explanation;
-        this.statusCode = StatusCode.BAD_REQUEST; 
-  }
+        this.statusCode = StatusCodes.BAD_REQUEST; // Fixed typo
+    }
 }
 
-module.exports = ValidationError
+module.exports = ValidationError;

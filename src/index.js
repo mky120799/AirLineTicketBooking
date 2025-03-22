@@ -1,8 +1,8 @@
 const bodyParser = require('body-parser');
-const { PORT } = require('./config/serverConfig'); // Corrected the import path
 const express = require('express'); // Fixed the typo
 const app = express();
-require('dotenv').config();
+const {DB_SYNC,PORT} = require('./config/serverConfig'); // Fixed the import path
+console.log(DB_SYNC);
 const apiRoutes = require('./routes/index');
 const db = require('./models/index'); // Fixed the typo
 
@@ -13,9 +13,10 @@ const setupAndStartServer = () => {
     app.use('/api', apiRoutes); 
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
-        if(process.env.DB_SYNC){
+        if(DB_SYNC){
             db.sequelize.sync({alter:true});
         }
+     //   console.log(`flight service path: ${FLIGHT_SERVICE_PATH}`);
     });
 }
 
